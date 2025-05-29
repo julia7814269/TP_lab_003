@@ -48,6 +48,8 @@ namespace WindowsFormsApp1
                     LoadExcelData(openFileDialog.FileName);
                     DisplayData();
                     PlotTemperatureData();
+                    CalculateTemperatureDifferences();
+ 
                 }
                 catch (Exception ex)
                 {
@@ -170,7 +172,44 @@ namespace WindowsFormsApp1
             chartTemperature.Series.Add(avgTempSeries);
         }
 
-        
+        // Вычисление перепады температур
+        private void CalculateTemperatureDifferences()
+        {
+            if (weatherData == null || weatherData.Rows.Count == 0) return;
+
+            DataTable differences = new DataTable();
+            differences.Columns.Add("Дата", typeof(string));
+            differences.Columns.Add("Перепад температуры", typeof(double));
+
+            double maxDifference = double.MinValue;
+            double minDifference = double.MaxValue;
+            string maxDiffDate = "", minDiffDate = "";
+
+            for (int i = 0; i < weatherData.Rows.Count; i++)
+            {
+                double maxTemp = Convert.ToDouble(weatherData.Rows[i]["Максимальная температура"]);
+                double minTemp = Convert.ToDouble(weatherData.Rows[i]["Минимальная температура"]);
+                double difference = maxTemp - minTemp;
+
+                differences.Rows.Add(weatherData.Rows[i]["Дата"].ToString(), difference);
+
+                if (difference > maxDifference)
+                {
+                    maxDifference = difference;
+                    maxDiffDate = weatherData.Rows[i]["Дата"].ToString();
+                }
+
+                if (difference < minDifference)
+                {
+                    minDifference = difference;
+                    minDiffDate = weatherData.Rows[i]["Дата"].ToString();
+                }
+            }
+
+            lblMaxDifference.Text = $"Максимальный перепад: {maxDifference:F1}°C ({maxDiffDate.Split(' ')[0]})";
+            lblMinDifference.Text = $"Минимальный перепад: {minDifference:F1}°C ({minDiffDate.Split(' ')[0]})";
+        }
+
     }
 }
 

@@ -34,6 +34,8 @@
             this.btnLoadData = new System.Windows.Forms.Button();
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.lblMaxDifference = new System.Windows.Forms.Label();
+            this.lblMinDifference = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +62,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartTemperature.Series.Add(series1);
-            this.chartTemperature.Size = new System.Drawing.Size(923, 478);
+            this.chartTemperature.Size = new System.Drawing.Size(923, 722);
             this.chartTemperature.TabIndex = 3;
             this.chartTemperature.Text = "chart2";
             // 
@@ -72,11 +74,31 @@
             this.dataGridView.Size = new System.Drawing.Size(565, 722);
             this.dataGridView.TabIndex = 4;
             // 
+            // lblMaxDifference
+            // 
+            this.lblMaxDifference.AutoSize = true;
+            this.lblMaxDifference.Location = new System.Drawing.Point(609, 751);
+            this.lblMaxDifference.Name = "lblMaxDifference";
+            this.lblMaxDifference.Size = new System.Drawing.Size(131, 13);
+            this.lblMaxDifference.TabIndex = 5;
+            this.lblMaxDifference.Text = "Максимальный перепад";
+            // 
+            // lblMinDifference
+            // 
+            this.lblMinDifference.AutoSize = true;
+            this.lblMinDifference.Location = new System.Drawing.Point(609, 777);
+            this.lblMinDifference.Name = "lblMinDifference";
+            this.lblMinDifference.Size = new System.Drawing.Size(125, 13);
+            this.lblMinDifference.TabIndex = 6;
+            this.lblMinDifference.Text = "Минимальный перепад";
+            // 
             // TempForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1518, 824);
+            this.Controls.Add(this.lblMinDifference);
+            this.Controls.Add(this.lblMaxDifference);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.chartTemperature);
             this.Controls.Add(this.btnLoadData);
@@ -85,6 +107,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -93,5 +116,7 @@
         private System.Windows.Forms.Button btnLoadData;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartTemperature;
         private System.Windows.Forms.DataGridView dataGridView;
+        private System.Windows.Forms.Label lblMaxDifference;
+        private System.Windows.Forms.Label lblMinDifference;
     }
 }
