@@ -15,10 +15,21 @@ namespace WindowsFormsApp1
     public partial class TempForm : Form
     {
         private DataTable weatherData;
-  
+       
         public TempForm()
         {
             InitializeComponent();
+            InitializeChart();
+        }
+
+        // Инициализция графиков
+        private void InitializeChart()
+        {
+            // Инициализация основного графика
+            chartTemperature.Series.Clear();
+            chartTemperature.ChartAreas[0].AxisX.Title = "День месяца";
+            chartTemperature.ChartAreas[0].AxisY.Title = "Температура (°C)";
+            chartTemperature.ChartAreas[0].AxisX.Interval = 1;
         }
 
         // Кнопка "Загрузить файл"
@@ -36,6 +47,7 @@ namespace WindowsFormsApp1
                 {
                     LoadExcelData(openFileDialog.FileName);
                     DisplayData();
+                    PlotTemperatureData();
                 }
                 catch (Exception ex)
                 {
@@ -106,6 +118,56 @@ namespace WindowsFormsApp1
         {
             dataGridView.DataSource = weatherData;
             dataGridView.AutoResizeColumns();
+        }
+
+        // Потсроение графиков температур на основе данных
+        private void PlotTemperatureData()
+        {
+            chartTemperature.Series.Clear();
+
+            // Серия для максимальной температуры
+            Series maxTempSeries = new Series("Максимальная температура")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = Color.Red,
+                BorderWidth = 2
+            };
+
+            // Серия для минимальной температуры
+            Series minTempSeries = new Series("Минимальная температура")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = Color.Blue,
+                BorderWidth = 2
+            };
+
+            // Серия для средней температуры
+            Series avgTempSeries = new Series("Средняя температура")
+            {
+                ChartType = SeriesChartType.Line,
+                Color = Color.Green,
+                BorderWidth = 2
+            };
+
+            // Заполняем данные
+            for (int i = 0; i < weatherData.Rows.Count; i++)
+            {
+                string day = weatherData.Rows[i]["Дата"].ToString().Split(' ')[0];
+                double maxTemp = weatherData.Rows[i]["Максимальная температура"] is DBNull ? 0 :
+                                Convert.ToDouble(weatherData.Rows[i]["Максимальная температура"]);
+                double minTemp = weatherData.Rows[i]["Минимальная температура"] is DBNull ? 0 :
+                                Convert.ToDouble(weatherData.Rows[i]["Минимальная температура"]);
+                double avgTemp = weatherData.Rows[i]["Средняя температура"] is DBNull ? 0 :
+                                Convert.ToDouble(weatherData.Rows[i]["Средняя температура"]);
+
+                maxTempSeries.Points.AddXY(day, maxTemp);
+                minTempSeries.Points.AddXY(day, minTemp);
+                avgTempSeries.Points.AddXY(day, avgTemp);
+            }
+
+            chartTemperature.Series.Add(maxTempSeries);
+            chartTemperature.Series.Add(minTempSeries);
+            chartTemperature.Series.Add(avgTempSeries);
         }
 
         
