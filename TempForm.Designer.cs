@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnLoadData = new System.Windows.Forms.Button();
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -45,6 +45,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnForecast = new System.Windows.Forms.Button();
             this.chartForecast = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.buttonClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numForecastDays)).BeginInit();
@@ -64,16 +65,16 @@
             // 
             // chartTemperature
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartTemperature.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartTemperature.Legends.Add(legend1);
+            chartArea5.Name = "ChartArea1";
+            this.chartTemperature.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chartTemperature.Legends.Add(legend5);
             this.chartTemperature.Location = new System.Drawing.Point(583, 12);
             this.chartTemperature.Name = "chartTemperature";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartTemperature.Series.Add(series1);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.chartTemperature.Series.Add(series5);
             this.chartTemperature.Size = new System.Drawing.Size(923, 478);
             this.chartTemperature.TabIndex = 3;
             this.chartTemperature.Text = "chart2";
@@ -89,7 +90,7 @@
             // lblMaxDifference
             // 
             this.lblMaxDifference.AutoSize = true;
-            this.lblMaxDifference.Location = new System.Drawing.Point(609, 751);
+            this.lblMaxDifference.Location = new System.Drawing.Point(580, 751);
             this.lblMaxDifference.Name = "lblMaxDifference";
             this.lblMaxDifference.Size = new System.Drawing.Size(131, 13);
             this.lblMaxDifference.TabIndex = 5;
@@ -98,7 +99,7 @@
             // lblMinDifference
             // 
             this.lblMinDifference.AutoSize = true;
-            this.lblMinDifference.Location = new System.Drawing.Point(609, 777);
+            this.lblMinDifference.Location = new System.Drawing.Point(580, 777);
             this.lblMinDifference.Name = "lblMinDifference";
             this.lblMinDifference.Size = new System.Drawing.Size(125, 13);
             this.lblMinDifference.TabIndex = 6;
@@ -148,19 +149,30 @@
             // 
             // chartForecast
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartForecast.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartForecast.Legends.Add(legend2);
+            chartArea6.Name = "ChartArea1";
+            this.chartForecast.ChartAreas.Add(chartArea6);
+            legend6.Name = "Legend1";
+            this.chartForecast.Legends.Add(legend6);
             this.chartForecast.Location = new System.Drawing.Point(583, 496);
             this.chartForecast.Name = "chartForecast";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartForecast.Series.Add(series2);
+            series6.ChartArea = "ChartArea1";
+            series6.Legend = "Legend1";
+            series6.Name = "Series1";
+            this.chartForecast.Series.Add(series6);
             this.chartForecast.Size = new System.Drawing.Size(923, 239);
             this.chartForecast.TabIndex = 2;
             this.chartForecast.Text = "chart1";
+            // 
+            // buttonClose
+            // 
+            this.buttonClose.Location = new System.Drawing.Point(1363, 748);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(143, 70);
+            this.buttonClose.TabIndex = 1;
+            this.buttonClose.Text = "Закрыть";
+            this.buttonClose.UseMnemonic = false;
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // TempForm
             // 
@@ -177,6 +189,7 @@
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.chartTemperature);
             this.Controls.Add(this.chartForecast);
+            this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.btnLoadData);
             this.Name = "TempForm";
             this.Text = "Данные о температуре";
@@ -203,5 +216,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnForecast;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartForecast;
+        private System.Windows.Forms.Button buttonClose;
     }
 }

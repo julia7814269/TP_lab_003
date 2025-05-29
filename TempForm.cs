@@ -163,7 +163,7 @@ namespace WindowsFormsApp1
             dataGridView.AutoResizeColumns();
         }
 
-        // Потсроение графиков температур на основе данных
+        // Построение графиков температур на основе данных
         private void PlotTemperatureData()
         {
             chartTemperature.Series.Clear();
@@ -249,6 +249,7 @@ namespace WindowsFormsApp1
                 double sum = 0;
                 int startIndex = avgTemps.Length - movingAverageWindow;
 
+                // Суммируем значения за последние movingAverageWindow дней
                 for (int j = 0; j < movingAverageWindow; j++)
                 {
                     sum += avgTemps[startIndex + j];
@@ -256,16 +257,18 @@ namespace WindowsFormsApp1
 
                 double forecastValue = sum / movingAverageWindow;
 
+                // Добавляем прогнозируемое значение в массив для следующих итераций
                 Array.Resize(ref avgTemps, avgTemps.Length + 1);
                 avgTemps[avgTemps.Length - 1] = forecastValue;
 
+                // Добавляем точку на график
                 string dayLabel = $"Прогноз {i + 1}";
                 forecastSeries.Points.AddXY(dayLabel, forecastValue);
             }
 
             chartForecast.Series.Add(forecastSeries);
 
-            // Добавляем пояснительную информацию
+            // Добавляем заголовок
             chartForecast.Titles.Clear();
             chartForecast.Titles.Add(new Title($"Прогноз на {forecastDays} дней (скользящее среднее за {movingAverageWindow} дня)",
                 Docking.Top, new Font("Arial", 10, FontStyle.Bold), Color.Black));
@@ -283,13 +286,14 @@ namespace WindowsFormsApp1
         {
             if (weatherData == null || weatherData.Rows.Count == 0) return;
 
+            // Создание врменной таблицы для фиксации вычисляемых перепадов
             DataTable differences = new DataTable();
             differences.Columns.Add("Дата", typeof(string));
             differences.Columns.Add("Перепад температуры", typeof(double));
 
-            double maxDifference = double.MinValue;
-            double minDifference = double.MaxValue;
-            string maxDiffDate = "", minDiffDate = "";
+            double maxDifference = double.MinValue;    // Начальное значение для поиска максимума
+            double minDifference = double.MaxValue;    // Начальное значение для поиска минимума
+            string maxDiffDate = "", minDiffDate = ""; // Даты экстремальных перепадов
 
             for (int i = 0; i < weatherData.Rows.Count; i++)
             {
@@ -299,12 +303,14 @@ namespace WindowsFormsApp1
 
                 differences.Rows.Add(weatherData.Rows[i]["Дата"].ToString(), difference);
 
+                // Поиск максимального перепада
                 if (difference > maxDifference)
                 {
                     maxDifference = difference;
                     maxDiffDate = weatherData.Rows[i]["Дата"].ToString();
                 }
 
+                // Поиск минимального перепада
                 if (difference < minDifference)
                 {
                     minDifference = difference;
@@ -314,6 +320,12 @@ namespace WindowsFormsApp1
 
             lblMaxDifference.Text = $"Максимальный перепад: {maxDifference:F1}°C ({maxDiffDate.Split(' ')[0]})";
             lblMinDifference.Text = $"Минимальный перепад: {minDifference:F1}°C ({minDiffDate.Split(' ')[0]})";
+        }
+
+        // Кнопка "Закрыть"
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
