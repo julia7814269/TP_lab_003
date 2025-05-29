@@ -31,13 +31,25 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnLoadData = new System.Windows.Forms.Button();
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.lblMaxDifference = new System.Windows.Forms.Label();
             this.lblMinDifference = new System.Windows.Forms.Label();
+            this.numForecastDays = new System.Windows.Forms.NumericUpDown();
+            this.numMovingAverage = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnForecast = new System.Windows.Forms.Button();
+            this.chartForecast = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numForecastDays)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMovingAverage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartForecast)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLoadData
@@ -62,7 +74,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartTemperature.Series.Add(series1);
-            this.chartTemperature.Size = new System.Drawing.Size(923, 722);
+            this.chartTemperature.Size = new System.Drawing.Size(923, 478);
             this.chartTemperature.TabIndex = 3;
             this.chartTemperature.Text = "chart2";
             // 
@@ -92,20 +104,87 @@
             this.lblMinDifference.TabIndex = 6;
             this.lblMinDifference.Text = "Минимальный перепад";
             // 
+            // numForecastDays
+            // 
+            this.numForecastDays.Location = new System.Drawing.Point(399, 751);
+            this.numForecastDays.Name = "numForecastDays";
+            this.numForecastDays.Size = new System.Drawing.Size(61, 20);
+            this.numForecastDays.TabIndex = 7;
+            // 
+            // numMovingAverage
+            // 
+            this.numMovingAverage.Location = new System.Drawing.Point(399, 777);
+            this.numMovingAverage.Name = "numMovingAverage";
+            this.numMovingAverage.Size = new System.Drawing.Size(61, 20);
+            this.numMovingAverage.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(275, 779);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(118, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Окно для вычислений";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(294, 753);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(99, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Дни для прогноза";
+            // 
+            // btnForecast
+            // 
+            this.btnForecast.Location = new System.Drawing.Point(466, 760);
+            this.btnForecast.Name = "btnForecast";
+            this.btnForecast.Size = new System.Drawing.Size(82, 30);
+            this.btnForecast.TabIndex = 9;
+            this.btnForecast.Text = "Прогноз";
+            this.btnForecast.UseVisualStyleBackColor = true;
+            this.btnForecast.Click += new System.EventHandler(this.btnForecast_Click);
+            // 
+            // chartForecast
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chartForecast.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartForecast.Legends.Add(legend2);
+            this.chartForecast.Location = new System.Drawing.Point(583, 496);
+            this.chartForecast.Name = "chartForecast";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartForecast.Series.Add(series2);
+            this.chartForecast.Size = new System.Drawing.Size(923, 239);
+            this.chartForecast.TabIndex = 2;
+            this.chartForecast.Text = "chart1";
+            // 
             // TempForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1518, 824);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnForecast);
+            this.Controls.Add(this.numMovingAverage);
+            this.Controls.Add(this.numForecastDays);
             this.Controls.Add(this.lblMinDifference);
             this.Controls.Add(this.lblMaxDifference);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.chartTemperature);
+            this.Controls.Add(this.chartForecast);
             this.Controls.Add(this.btnLoadData);
             this.Name = "TempForm";
             this.Text = "Данные о температуре";
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numForecastDays)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMovingAverage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartForecast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -118,5 +197,11 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Label lblMaxDifference;
         private System.Windows.Forms.Label lblMinDifference;
+        private System.Windows.Forms.NumericUpDown numForecastDays;
+        private System.Windows.Forms.NumericUpDown numMovingAverage;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnForecast;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartForecast;
     }
 }
