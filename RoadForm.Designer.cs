@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnOpenFile = new System.Windows.Forms.Button();
@@ -39,9 +39,12 @@
             this.lblMinDecrease = new System.Windows.Forms.TextBox();
             this.comboBoxRegion = new System.Windows.Forms.ComboBox();
             this.numericYears = new System.Windows.Forms.NumericUpDown();
+            this.numericWindowSize = new System.Windows.Forms.NumericUpDown();
+            this.textBoxPrediction = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericYears)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWindowSize)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
@@ -56,16 +59,16 @@
             // 
             // chart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(2, 67);
             this.chart.Name = "chart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart.Series.Add(series1);
             this.chart.Size = new System.Drawing.Size(2142, 1045);
             this.chart.TabIndex = 1;
             this.chart.Text = "chart1";
@@ -130,11 +133,37 @@
             0,
             0});
             // 
+            // numericWindowSize
+            // 
+            this.numericWindowSize.Location = new System.Drawing.Point(2500, 873);
+            this.numericWindowSize.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericWindowSize.Name = "numericWindowSize";
+            this.numericWindowSize.Size = new System.Drawing.Size(120, 31);
+            this.numericWindowSize.TabIndex = 9;
+            this.numericWindowSize.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // textBoxPrediction
+            // 
+            this.textBoxPrediction.Location = new System.Drawing.Point(2161, 789);
+            this.textBoxPrediction.Name = "textBoxPrediction";
+            this.textBoxPrediction.Size = new System.Drawing.Size(538, 31);
+            this.textBoxPrediction.TabIndex = 10;
+            // 
             // RoadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2711, 1500);
+            this.Controls.Add(this.textBoxPrediction);
+            this.Controls.Add(this.numericWindowSize);
             this.Controls.Add(this.numericYears);
             this.Controls.Add(this.comboBoxRegion);
             this.Controls.Add(this.lblMinDecrease);
@@ -149,6 +178,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericYears)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericWindowSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,5 +194,7 @@
         private System.Windows.Forms.TextBox lblMinDecrease;
         private System.Windows.Forms.ComboBox comboBoxRegion;
         private System.Windows.Forms.NumericUpDown numericYears;
+        private System.Windows.Forms.NumericUpDown numericWindowSize;
+        private System.Windows.Forms.TextBox textBoxPrediction;
     }
 }

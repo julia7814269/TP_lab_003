@@ -171,10 +171,12 @@ namespace WindowsFormsApp1
             if (dataTable.Rows.Count == 0) return;
 
             int years = (int)numericYears.Value;
-            PredictAndPlot(years);
+            int windowSize = (int)numericWindowSize.Value;
+
+            PredictAndPlot(years, windowSize);
         }
         // Рисование графика прогноза
-        private void PredictAndPlot(int yearsToPredict)
+        private void PredictAndPlot(int yearsToPredict, int windowSize)
         {
             // Очистка для обновления графика
             chart.Series.Clear();
@@ -208,7 +210,7 @@ namespace WindowsFormsApp1
             chart.Series.Add(series);
 
             // Прогнозирование
-            var predictedValues = MovingAverageExtrapolation(values, yearsToPredict);
+            var predictedValues = MovingAverageExtrapolation(values, yearsToPredict, windowSize);
             var predictionSeries = new Series($"{selectedRegion} (прогноз)")
             {
                 ChartType = SeriesChartType.Line,
@@ -226,14 +228,25 @@ namespace WindowsFormsApp1
             }
 
             chart.Series.Add(predictionSeries);
+
+            // Вывод значения последнего года прогноза
+            if (predictedValues.Count > 0)
+            {
+                int finalYear = lastYear + predictedValues.Count;
+                double finalValue = predictedValues.Last();
+                textBoxPrediction.Text = $"В {finalYear} году: {finalValue:F2}%";
+            }
+            else
+            {
+                textBoxPrediction.Text = "Недостаточно данных для прогноза.";
+            }
         }
         // Функция прогнозирования методом экстраполяции
-        private List<double> MovingAverageExtrapolation(List<double> data, int yearsToPredict)
+        private List<double> MovingAverageExtrapolation(List<double> data, int yearsToPredict, int windowSize)
         {
             var predicted = new List<double>();
-            if (data.Count < 3) return predicted;
+            if (data.Count < windowSize) return predicted;
 
-            int windowSize = 3;
             double trend = (data[data.Count - 1] - data[data.Count - windowSize]) / (windowSize - 1);
             double lastValue = data.Last();
 
