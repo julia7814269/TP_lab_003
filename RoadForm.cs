@@ -36,6 +36,7 @@ namespace WindowsFormsApp1
                     LoadExcelData(openFileDialog.FileName);
                     DisplayData();
                     PlotCharts();
+                    AnalyzeChanges();
                 }
                 catch (Exception ex)
                 {
@@ -91,13 +92,14 @@ namespace WindowsFormsApp1
 
             foreach (DataRow row in dataTable.Rows)
             {
+                // Настрофка графика для нового региона
                 string region = row[0].ToString();
                 var series = new Series(region)
                 {
                     ChartType = SeriesChartType.Line,
                     BorderWidth = 2
                 };
-
+                // Добавление точек на график
                 for (int i = 1; i < dataTable.Columns.Count; i++)
                 {
                     if (double.TryParse(row[i].ToString(), out double value))
@@ -108,6 +110,45 @@ namespace WindowsFormsApp1
 
                 chart.Series.Add(series);
             }
+        }
+        // Функция анализа изменений
+        private void AnalyzeChanges()
+        {
+            if (dataTable.Rows.Count == 0 || dataTable.Columns.Count < 2) return;
+
+            string maxDecreaseRegion = "";
+            double maxDecrease = double.MinValue;
+
+            string minDecreaseRegion = "";
+            double minDecrease = double.MaxValue;
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string region = row[0].ToString();
+
+                if (!double.TryParse(row[1].ToString(), out double firstValue) ||
+                    !double.TryParse(row[dataTable.Columns.Count - 1].ToString(), out double lastValue))
+                    continue;
+
+                // Расчёт изменения
+                double change = firstValue - lastValue;
+
+                // Сравнение с предыдущими и поиск наименьшего и наибольшего
+                if (change > maxDecrease)
+                {
+                    maxDecrease = change;
+                    maxDecreaseRegion = region;
+                }
+
+                if (change < minDecrease)
+                {
+                    minDecrease = change;
+                    minDecreaseRegion = region;
+                }
+            }
+
+            lblMaxDecrease.Text = $"Максимальное уменьшение: {maxDecreaseRegion} на {maxDecrease:F2}%";
+            lblMinDecrease.Text = $"Минимальное уменьшение: {minDecreaseRegion} на {minDecrease:F2}%";
         }
     }
 }

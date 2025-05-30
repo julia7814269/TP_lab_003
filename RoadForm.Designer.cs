@@ -34,6 +34,8 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnOpenFile = new System.Windows.Forms.Button();
+            this.lblMinDecrease = new System.Windows.Forms.TextBox();
+            this.lblMaxDecrease = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
@@ -74,11 +76,27 @@
             this.btnOpenFile.UseVisualStyleBackColor = true;
             this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
             // 
+            // lblMinDecrease
+            // 
+            this.lblMinDecrease.Location = new System.Drawing.Point(994, 12);
+            this.lblMinDecrease.Name = "lblMinDecrease";
+            this.lblMinDecrease.Size = new System.Drawing.Size(959, 31);
+            this.lblMinDecrease.TabIndex = 6;
+            // 
+            // lblMaxDecrease
+            // 
+            this.lblMaxDecrease.Location = new System.Drawing.Point(59, 12);
+            this.lblMaxDecrease.Name = "lblMaxDecrease";
+            this.lblMaxDecrease.Size = new System.Drawing.Size(899, 31);
+            this.lblMaxDecrease.TabIndex = 5;
+            // 
             // RoadForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2711, 1500);
+            this.Controls.Add(this.lblMinDecrease);
+            this.Controls.Add(this.lblMaxDecrease);
             this.Controls.Add(this.btnOpenFile);
             this.Controls.Add(this.chart);
             this.Controls.Add(this.dataGridView);
@@ -88,6 +106,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -96,5 +115,7 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.Button btnOpenFile;
+        private System.Windows.Forms.TextBox lblMinDecrease;
+        private System.Windows.Forms.TextBox lblMaxDecrease;
     }
 }
