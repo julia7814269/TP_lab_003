@@ -35,6 +35,7 @@ namespace WindowsFormsApp1
                 {
                     LoadExcelData(openFileDialog.FileName);
                     DisplayData();
+                    PlotCharts();
                 }
                 catch (Exception ex)
                 {
@@ -78,6 +79,35 @@ namespace WindowsFormsApp1
         private void DisplayData()
         {
             dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+        // Рисование графика
+        private void PlotCharts()
+        {
+            // Настройки графика
+            chart.Series.Clear();
+            chart.ChartAreas[0].AxisX.Title = "Год";
+            chart.ChartAreas[0].AxisY.Title = "Доля плохих дорог (%)";
+            chart.ChartAreas[0].AxisX.Interval = 1;
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string region = row[0].ToString();
+                var series = new Series(region)
+                {
+                    ChartType = SeriesChartType.Line,
+                    BorderWidth = 2
+                };
+
+                for (int i = 1; i < dataTable.Columns.Count; i++)
+                {
+                    if (double.TryParse(row[i].ToString(), out double value))
+                    {
+                        series.Points.AddXY(dataTable.Columns[i].ColumnName, value);
+                    }
+                }
+
+                chart.Series.Add(series);
+            }
         }
     }
 }

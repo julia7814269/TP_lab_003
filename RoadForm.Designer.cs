@@ -66,7 +66,7 @@
             // 
             // btnOpenFile
             // 
-            this.btnOpenFile.Location = new System.Drawing.Point(2226, 67);
+            this.btnOpenFile.Location = new System.Drawing.Point(2263, 786);
             this.btnOpenFile.Name = "btnOpenFile";
             this.btnOpenFile.Size = new System.Drawing.Size(357, 46);
             this.btnOpenFile.TabIndex = 2;
