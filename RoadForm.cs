@@ -236,7 +236,7 @@ namespace WindowsFormsApp1
             {
                 int finalYear = lastYear + predictedValues.Count;
                 double finalValue = predictedValues.Last();
-                textBoxPrediction.Text = $"В {finalYear} году: {finalValue:F2}%";
+                textBoxPrediction.Text = $"Согласно прогнозу в {finalYear} году: {finalValue:F2}%";
             }
             else
             {
