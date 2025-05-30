@@ -133,6 +133,9 @@
     <EmbeddedResource Include="RoadForm.resx">
       <DependentUpon>RoadForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TempForm.resx">
+      <DependentUpon>TempForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -35,9 +35,9 @@
             // 
             // buttonRoad
             // 
-            this.buttonRoad.Location = new System.Drawing.Point(175, 110);
+            this.buttonRoad.Location = new System.Drawing.Point(143, 110);
             this.buttonRoad.Name = "buttonRoad";
-            this.buttonRoad.Size = new System.Drawing.Size(456, 50);
+            this.buttonRoad.Size = new System.Drawing.Size(516, 50);
             this.buttonRoad.TabIndex = 0;
             this.buttonRoad.Text = "Показать данные о доли плохих дорог";
             this.buttonRoad.UseVisualStyleBackColor = true;
@@ -45,9 +45,9 @@
             // 
             // buttonTemp
             // 
-            this.buttonTemp.Location = new System.Drawing.Point(175, 194);
+            this.buttonTemp.Location = new System.Drawing.Point(143, 194);
             this.buttonTemp.Name = "buttonTemp";
-            this.buttonTemp.Size = new System.Drawing.Size(456, 50);
+            this.buttonTemp.Size = new System.Drawing.Size(516, 50);
             this.buttonTemp.TabIndex = 1;
             this.buttonTemp.Text = "Показать данные о температуре в городе";
             this.buttonTemp.UseVisualStyleBackColor = true;
