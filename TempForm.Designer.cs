@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnLoadData = new System.Windows.Forms.Button();
             this.chartTemperature = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -65,16 +65,16 @@
             // 
             // chartTemperature
             // 
-            chartArea5.Name = "ChartArea1";
-            this.chartTemperature.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chartTemperature.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.chartTemperature.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartTemperature.Legends.Add(legend1);
             this.chartTemperature.Location = new System.Drawing.Point(583, 12);
             this.chartTemperature.Name = "chartTemperature";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.chartTemperature.Series.Add(series5);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartTemperature.Series.Add(series1);
             this.chartTemperature.Size = new System.Drawing.Size(923, 478);
             this.chartTemperature.TabIndex = 3;
             this.chartTemperature.Text = "chart2";
@@ -149,16 +149,16 @@
             // 
             // chartForecast
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chartForecast.ChartAreas.Add(chartArea6);
-            legend6.Name = "Legend1";
-            this.chartForecast.Legends.Add(legend6);
+            chartArea2.Name = "ChartArea1";
+            this.chartForecast.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartForecast.Legends.Add(legend2);
             this.chartForecast.Location = new System.Drawing.Point(583, 496);
             this.chartForecast.Name = "chartForecast";
-            series6.ChartArea = "ChartArea1";
-            series6.Legend = "Legend1";
-            series6.Name = "Series1";
-            this.chartForecast.Series.Add(series6);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartForecast.Series.Add(series2);
             this.chartForecast.Size = new System.Drawing.Size(923, 239);
             this.chartForecast.TabIndex = 2;
             this.chartForecast.Text = "chart1";
@@ -193,6 +193,7 @@
             this.Controls.Add(this.btnLoadData);
             this.Name = "TempForm";
             this.Text = "Данные о температуре";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.chartTemperature)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numForecastDays)).EndInit();
