@@ -61,7 +61,7 @@ namespace WindowsFormsApp1
                 string columnName = (range.Cells[1, c] as Excel.Range)?.Value?.ToString() ?? $"Column{c}";
                 dataTable.Columns.Add(columnName);
             }
-
+            
             // Добавление данных
             for (int r = 2; r <= range.Rows.Count; r++)
             {
@@ -71,10 +71,16 @@ namespace WindowsFormsApp1
                     dataRow[c - 1] = (range.Cells[r, c] as Excel.Range)?.Value;
                 }
                 dataTable.Rows.Add(dataRow);
+                comboBoxRegion.Items.Add(dataRow[0]?.ToString());
             }
 
             workbook.Close(false);
             excelApp.Quit();
+
+            if (comboBoxRegion.Items.Count > 0)
+            {
+                comboBoxRegion.SelectedIndex = 0; // Выбрать первый регион по умолчанию
+            }
         }
         // Вывод таблицы
         private void DisplayData()
@@ -84,32 +90,40 @@ namespace WindowsFormsApp1
         // Рисование графика
         private void PlotCharts()
         {
-            // Настройки графика
             chart.Series.Clear();
             chart.ChartAreas[0].AxisX.Title = "Год";
             chart.ChartAreas[0].AxisY.Title = "Доля плохих дорог (%)";
             chart.ChartAreas[0].AxisX.Interval = 1;
 
-            foreach (DataRow row in dataTable.Rows)
-            {
-                // Настрофка графика для нового региона
-                string region = row[0].ToString();
-                var series = new Series(region)
-                {
-                    ChartType = SeriesChartType.Line,
-                    BorderWidth = 2
-                };
-                // Добавление точек на график
-                for (int i = 1; i < dataTable.Columns.Count; i++)
-                {
-                    if (double.TryParse(row[i].ToString(), out double value))
-                    {
-                        series.Points.AddXY(dataTable.Columns[i].ColumnName, value);
-                    }
-                }
+            // Выбор региона для графика
+            string selectedRegion = comboBoxRegion.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedRegion)) return;
 
-                chart.Series.Add(series);
+            DataRow[] rows = dataTable.Select($"{dataTable.Columns[0].ColumnName} = '{selectedRegion.Replace("'", "''")}'");
+            if (rows.Length == 0) return;
+
+            var row = rows[0];
+            var series = new Series(selectedRegion)
+            {
+                ChartType = SeriesChartType.Line,
+                BorderWidth = 2
+            };
+
+            // Добавление точек на график
+            for (int i = 1; i < dataTable.Columns.Count; i++)
+            {
+                if (double.TryParse(row[i].ToString(), out double value))
+                {
+                    series.Points.AddXY(dataTable.Columns[i].ColumnName, value);
+                }
             }
+
+            chart.Series.Add(series);
+        }
+        // Изменение графика по выбранному региону
+        private void comboBoxRegion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            PlotCharts();
         }
         // Функция анализа изменений
         private void AnalyzeChanges()
@@ -149,6 +163,88 @@ namespace WindowsFormsApp1
 
             lblMaxDecrease.Text = $"Максимальное уменьшение: {maxDecreaseRegion} на {maxDecrease:F2}%";
             lblMinDecrease.Text = $"Минимальное уменьшение: {minDecreaseRegion} на {minDecrease:F2}%";
+        }
+
+        // Кнопка прогнозирования
+        private void btnPredict_Click(object sender, EventArgs e)
+        {
+            if (dataTable.Rows.Count == 0) return;
+
+            int years = (int)numericYears.Value;
+            PredictAndPlot(years);
+        }
+        // Рисование графика прогноза
+        private void PredictAndPlot(int yearsToPredict)
+        {
+            // Очистка для обновления графика
+            chart.Series.Clear();
+
+            string selectedRegion = comboBoxRegion.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(selectedRegion)) return;
+
+            DataRow[] rows = dataTable.Select($"{dataTable.Columns[0].ColumnName} = '{selectedRegion.Replace("'", "''")}'");
+            if (rows.Length == 0) return;
+
+            DataRow row = rows[0];
+            var values = new List<double>();
+            var series = new Series(selectedRegion)
+            {
+                ChartType = SeriesChartType.Line,
+                BorderWidth = 2
+            };
+
+            List<int> years = new List<int>();
+            for (int i = 1; i < dataTable.Columns.Count; i++)
+            {
+                if (double.TryParse(row[i].ToString(), out double value) &&
+                    int.TryParse(dataTable.Columns[i].ColumnName, out int year))
+                {
+                    values.Add(value);
+                    years.Add(year);
+                    series.Points.AddXY(year, value);
+                }
+            }
+
+            chart.Series.Add(series);
+
+            // Прогнозирование
+            var predictedValues = MovingAverageExtrapolation(values, yearsToPredict);
+            var predictionSeries = new Series($"{selectedRegion} (прогноз)")
+            {
+                ChartType = SeriesChartType.Line,
+                BorderWidth = 2,
+                Color = Color.Red,
+                BorderDashStyle = ChartDashStyle.Dash
+            };
+            // Выбор последнего года и прорисовка точек графика прогноза
+            int lastYear = years.Last();
+            double lastValue = values.Last();
+            foreach (var (prediction, index) in predictedValues.Select((val, idx) => (val, idx)))
+            {
+                int futureYear = lastYear + index + 1;
+                predictionSeries.Points.AddXY(futureYear, prediction);
+            }
+
+            chart.Series.Add(predictionSeries);
+        }
+        // Функция прогнозирования методом экстраполяции
+        private List<double> MovingAverageExtrapolation(List<double> data, int yearsToPredict)
+        {
+            var predicted = new List<double>();
+            if (data.Count < 3) return predicted;
+
+            int windowSize = 3;
+            double trend = (data[data.Count - 1] - data[data.Count - windowSize]) / (windowSize - 1);
+            double lastValue = data.Last();
+
+            // Составление списка значений прогноза
+            for (int i = 0; i < yearsToPredict; i++)
+            {
+                lastValue += trend;
+                predicted.Add(lastValue);
+            }
+
+            return predicted;
         }
     }
 }
